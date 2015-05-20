@@ -53,6 +53,8 @@ public class Frame1 extends JFrame implements ActionListener
                 for(int y=0; y<3; y++)
                 {
                     grid[x][y].setText("");
+                    round = 0;
+                    player.setText("Player1");
                 }
             }
         }
