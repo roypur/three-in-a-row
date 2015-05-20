@@ -11,6 +11,8 @@ public class Frame1 extends JFrame implements ActionListener
     
     JLabel player = new JLabel("Player1");
     
+    boolean endgame = false;
+    
     public Frame1()
     {
         
@@ -33,7 +35,7 @@ public class Frame1 extends JFrame implements ActionListener
         
         reset.addActionListener(this);
         
-        frame.add(new JLabel("Turn:"));
+        frame.add(new JLabel("Player:"));
         frame.add(player);
         frame.add(reset);
         
@@ -55,10 +57,11 @@ public class Frame1 extends JFrame implements ActionListener
                     grid[x][y].setText("");
                     round = 0;
                     player.setText("Player1");
+                    endgame=false;
                 }
             }
         }
-        else
+        else if(endgame==false)
         {
             for(int x=0; x<3; x++)
             {
@@ -102,11 +105,13 @@ public class Frame1 extends JFrame implements ActionListener
                 
                 if(row1==3)
                 {
-                    System.out.println("player 1 wins");
+                    JOptionPane.showMessageDialog(frame,"Player 1 wins","tic-tac-toe",JOptionPane.PLAIN_MESSAGE);
+                    endgame=true;
                 }
                 else if(row2==3)
                 {
-                    System.out.println("player 2 wins");
+                    JOptionPane.showMessageDialog(frame,"Player 2 wins","tic-tac-toe",JOptionPane.PLAIN_MESSAGE);
+                    endgame=true;
                 }
             
             }
@@ -131,11 +136,13 @@ public class Frame1 extends JFrame implements ActionListener
                 
                 if(column1==3)
                 {
-                    System.out.println("player 1 wins");
+                    JOptionPane.showMessageDialog(frame,"Player 1 wins","tic-tac-toe",JOptionPane.PLAIN_MESSAGE);
+                    endgame=true;
                 }
                 else if(column2==3)
                 {
-                    System.out.println("player 2 wins");
+                    JOptionPane.showMessageDialog(frame,"Player 2 wins","tic-tac-toe",JOptionPane.PLAIN_MESSAGE);
+                    endgame=true;
                 }
             
             }
@@ -144,14 +151,16 @@ public class Frame1 extends JFrame implements ActionListener
             {
                 if((grid[0][0].getText().equals("1") && grid[2][2].getText().equals("1")) || grid[0][2].getText().equals("1") && grid[2][0].getText().equals("1"))
                 {
-                    System.out.println("player 1 wins");
+                    JOptionPane.showMessageDialog(frame,"Player 1 wins","tic-tac-toe",JOptionPane.PLAIN_MESSAGE);
+                    endgame=true;
                 }
             }
             else if(grid[1][1].getText().equals("2"))
             {
                 if((grid[0][0].getText().equals("2") && grid[2][2].getText().equals("2")) || grid[0][2].getText().equals("2") && grid[2][0].getText().equals("2"))
                 {
-                    System.out.println("player 2 wins");
+                    JOptionPane.showMessageDialog(frame,"Player 2 wins","tic-tac-toe",JOptionPane.PLAIN_MESSAGE);
+                    endgame=true;
                 }
             }
         }
