@@ -2,35 +2,66 @@ import java.net.*;
 import java.io.*;
 import com.google.gson.*;
 
-public class multiplayer
+public class multiplayer extends game
 {
+    
     public static void get(String id)
     {
+    
+        String update = "";
         
-        try
+        while (true)
         {
-            URL url = new URL("https://k8icb.firebaseio.com/tmp/"+id+".json");
-            HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
-            httpCon.setDoOutput(true);
-            httpCon.setRequestMethod("GET");
-            OutputStreamWriter out = new OutputStreamWriter(
-            httpCon.getOutputStream());
-            out.close();
-            httpCon.getInputStream();
-        }
-        catch (MalformedURLException e)
-        {
-            e.printStackTrace();
-        }
-        catch (ProtocolException e)
-        {
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+            String received;
+            try
+            {
+            
+                BufferedReader reader;
+            
+                URL url = new URL("https://k8icb.firebaseio.com/tmp/"+id+".json");
+                HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+                httpCon.setRequestMethod("GET");
+            
+                reader = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+ 
+                received = reader.readLine();
+                
+                if(!received.equals(update))
+                {
+                    update = received;
+                    
+                    Gson gson = new Gson();
+                    
+                    data d = gson.fromJson(update, data.class);
+                    
+                    
+                    updateGame(d.x, d.y, d.player);
 
+                }    
+
+            }
+            catch (MalformedURLException e)
+            {
+                //e.printStackTrace();
+            }
+            catch (ProtocolException e)
+            {
+                //e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                //e.printStackTrace();
+            }                
+            try
+            {
+                Thread.sleep(500);
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+
+        }
     }
     
     public static void set(String id, int x, int y, int player)
@@ -39,9 +70,8 @@ public class multiplayer
         data obj = new data(x,y,player);
         
         Gson gson = new Gson();
-        String json = gson.toJson(obj);
         
-        System.out.println(json);
+        String json = gson.toJson(obj);
         
         try
         {
@@ -73,9 +103,9 @@ public class multiplayer
 
 class data
 {
-    private int x;
-    private int y;
-    private int player;
+    int x;
+    int y;
+    int player;
     data(int x, int y, int player)
     {
         this.x = x;

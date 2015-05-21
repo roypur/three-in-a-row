@@ -4,7 +4,9 @@ import java.awt.*;
 import javax.swing.*;
 public class init
 {
-
+    public static int player;
+    public static String id;
+    
     public static void main(String args[])
     {
         multiplayer mp = new multiplayer();
@@ -13,7 +15,7 @@ public class init
         
         String[] rand = new String[2];
         
-        rand[0] = uuid.toString().substring(0,6);
+        rand[0] = uuid.toString().substring(0,3);
         
         String me = rand[0];
         
@@ -30,9 +32,9 @@ public class init
                     
         Arrays.sort(rand);
         
-        String id = rand[0]+rand[1];
+        id = rand[0]+rand[1];
         
-        int player;
+        
         
         if(me.equals(rand[0]))
         {
@@ -43,9 +45,10 @@ public class init
             player=2;
         }
         
-        
+        mp.set(id, 1, 1, 1);
         
         mp.get(id);
+        
         
     }
 }
