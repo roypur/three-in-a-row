@@ -19,11 +19,13 @@ public class init
         
         JFrame frame = new JFrame();
         
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         rand[1] = (String)JOptionPane.showInputDialog(
                     frame,
                     "Your id is:  "+me+"\n"
                     + "Enter your partners ID to play",
-                    "Customized Dialog",
+                    "Enter ID",
                     JOptionPane.PLAIN_MESSAGE);
                     
         Arrays.sort(rand);
