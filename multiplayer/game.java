@@ -49,20 +49,23 @@ public class game extends JFrame implements ActionListener
     }
     public static void updateGame(int x, int y, int player)
     {
-        if(grid[x][y].getText().equals(""))
+        if((x<4) && (y<4))
         {
-            grid[x][y].setText(Integer.toString(player));
-            if(round%2==0)
+            if(grid[x][y].getText().equals(""))
             {
-                playerText.setText("Player1");
+                grid[x][y].setText(Integer.toString(player));
+                if(round%2==0)
+                {
+                    playerText.setText("Player1");
+                }
+                else
+                {
+                    playerText.setText("Player2");
+                }
+                round++;
             }
-            else
-            {
-                playerText.setText("Player2");
-            }
-            round++;
+            getWinner();
         }
-        getWinner();
     }
     
     public void actionPerformed(ActionEvent event)

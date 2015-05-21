@@ -45,7 +45,7 @@ public class init
             player=2;
         }
         
-        mp.set(id, 1, 1, 1);
+        mp.set(id, 4, 4, 1);
         
         mp.get(id);
         
