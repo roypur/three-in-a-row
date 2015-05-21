@@ -4,12 +4,39 @@ import com.google.gson.*;
 
 public class multiplayer
 {
-    public void connect(String id)
-    {    
+    public static void get(String id)
+    {
         
-        data obj = new data();
-        
-        obj.x = 88;
+        try
+        {
+            URL url = new URL("https://k8icb.firebaseio.com/tmp/"+id+".json");
+            HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+            httpCon.setDoOutput(true);
+            httpCon.setRequestMethod("GET");
+            OutputStreamWriter out = new OutputStreamWriter(
+            httpCon.getOutputStream());
+            out.close();
+            httpCon.getInputStream();
+        }
+        catch (MalformedURLException e)
+        {
+            e.printStackTrace();
+        }
+        catch (ProtocolException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+    
+    public static void set(String id, int x, int y, int player)
+    {
+    
+        data obj = new data(x,y,player);
         
         Gson gson = new Gson();
         String json = gson.toJson(obj);
@@ -18,7 +45,7 @@ public class multiplayer
         
         try
         {
-            URL url = new URL("https://k8icb.firebaseio.com/"+id+".json");
+            URL url = new URL("https://k8icb.firebaseio.com/tmp/"+id+".json");
             HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
             httpCon.setDoOutput(true);
             httpCon.setRequestMethod("PUT");
@@ -42,19 +69,17 @@ public class multiplayer
         }
 
     }
-
 }
 
 class data
 {
-    int x = 0;
-    int y = 0;
-    String player = "d";
-
-    data()
-    {        
-        this.x = 0;
-        this.y = 0;
-        this.player = "";
+    private int x;
+    private int y;
+    private int player;
+    data(int x, int y, int player)
+    {
+        this.x = x;
+        this.y = y;
+        this.player = player;
     }
 }
