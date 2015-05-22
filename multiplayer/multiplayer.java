@@ -26,7 +26,7 @@ public class multiplayer extends game
  
                 received = reader.readLine();
                 
-                if(!received.equals(update))
+                if(received.equals(update)==false)
                 {
                     update = received;
                     

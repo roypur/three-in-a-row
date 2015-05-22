@@ -54,6 +54,8 @@ public class game extends JFrame implements ActionListener
             if(grid[x][y].getText().equals(""))
             {
                 grid[x][y].setText(Integer.toString(player));
+                
+                round++;
                 if(round%2==0)
                 {
                     playerText.setText("Player1");
@@ -62,7 +64,7 @@ public class game extends JFrame implements ActionListener
                 {
                     playerText.setText("Player2");
                 }
-                round++;
+                
             }
             getWinner();
         }
