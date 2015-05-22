@@ -9,7 +9,7 @@ public class init
     
     public static void main(String args[])
     {
-        multiplayer mp = new multiplayer();
+        
         
         UUID uuid = UUID.randomUUID();
         
@@ -44,6 +44,8 @@ public class init
         {
             player=2;
         }
+        
+        multiplayer mp = new multiplayer();
         
         mp.set(id, 4, 4, 1);
         

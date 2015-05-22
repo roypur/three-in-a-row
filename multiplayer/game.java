@@ -4,7 +4,8 @@ import javax.swing.*;  //notice javax
 public class game extends JFrame implements ActionListener
 {
     public static int round = 0;
-    public static JFrame frame = new JFrame();
+    
+    public static JFrame frame = new JFrame("tic-tac-toe Player"+Integer.toString(init.player));
     
     public static JButton[][] grid;
     
@@ -14,11 +15,23 @@ public class game extends JFrame implements ActionListener
     
     JButton reset = new JButton("reset");
     
-    public static JLabel playerText = new JLabel("Player1");
+    public static JLabel playerText = new JLabel();
+    
+    
+    
+    
     
     public game()
     {
-        int myPlayer = init.player;
+
+        if(init.player==1)
+        {
+            playerText.setText("you");
+        }
+        else
+        {
+            playerText.setText("enemy");
+        }
 
         frame.setLayout(new GridLayout(4,3));
         frame.setPreferredSize(new Dimension(400, 300));
@@ -58,11 +71,25 @@ public class game extends JFrame implements ActionListener
                 round++;
                 if(round%2==0)
                 {
-                    playerText.setText("Player1");
+                    if(init.player==1)
+                    {
+                        playerText.setText("you");
+                    }
+                    else
+                    {
+                        playerText.setText("enemy");
+                    }
                 }
                 else
                 {
-                    playerText.setText("Player2");
+                    if(init.player==2)
+                    {
+                        playerText.setText("you");
+                    }
+                    else
+                    {
+                        playerText.setText("enemy");
+                    }
                 }
                 
             }
@@ -72,7 +99,6 @@ public class game extends JFrame implements ActionListener
     
     public void actionPerformed(ActionEvent event)
     {
-        int myPlayer = init.player;
         
         Object source = event.getSource();
         
@@ -88,9 +114,7 @@ public class game extends JFrame implements ActionListener
                 }
             }
         }
-            
-            
-            
+         
         if((source==reset) && ((endgame==true) || (full==true)))
         {
             for(int x=0; x<3; x++)
@@ -99,13 +123,20 @@ public class game extends JFrame implements ActionListener
                 {
                     grid[x][y].setText("");
                     round = 0;
-                    playerText.setText("Player1");
+                    if(init.player==1)
+                    {
+                        playerText.setText("you");
+                    }
+                    else
+                    {
+                        playerText.setText("enemy");
+                    }
                     endgame=false;
                 }
             }
         }
 
-        if(((myPlayer==1) && (round%2==0)) || ((myPlayer==2) && round%2==1))
+        if(((init.player==1) && (round%2==0)) || ((init.player==2) && round%2==1))
         {
             round++;
 
@@ -119,16 +150,31 @@ public class game extends JFrame implements ActionListener
                         {
                             if(grid[x][y].getText().equals(""))
                             {
-                                multiplayer.set(init.id, x, y, myPlayer);
+                                multiplayer.set(init.id, x, y, init.player);
                                 if(round%2==0)
                                 {
                                     grid[x][y].setText("2");
-                                    playerText.setText("Player1");
+                                    
+                                    if(init.player==1)
+                                    {
+                                        playerText.setText("you");
+                                    }
+                                    else
+                                    {
+                                        playerText.setText("enemy");
+                                    }
                                 }
                                 else
                                 {
                                     grid[x][y].setText("1");
-                                    playerText.setText("Player2");
+                                    if(init.player==2)
+                                    {
+                                        playerText.setText("you");
+                                    }
+                                    else
+                                    {
+                                        playerText.setText("enemy");
+                                    }
                                 }
                             }
                         }
@@ -136,10 +182,11 @@ public class game extends JFrame implements ActionListener
                 }
             }    
         }
-        getWinner();
+        //getWinner();
     }
     public static void getWinner()
     {
+        
             //horizontal win
         for(int x=0; x<3; x++)
         {
@@ -160,13 +207,11 @@ public class game extends JFrame implements ActionListener
                 
             if(row1==3)
             {
-                JOptionPane.showMessageDialog(frame,"Player 1 wins","tic-tac-toe",JOptionPane.PLAIN_MESSAGE);
-                endgame=true;
+                winner(1);
             }
             else if(row2==3)
             {
-                JOptionPane.showMessageDialog(frame,"Player 2 wins","tic-tac-toe",JOptionPane.PLAIN_MESSAGE);
-                endgame=true;
+                winner(2);
             }
                     
         }
@@ -191,13 +236,11 @@ public class game extends JFrame implements ActionListener
                 
             if(column1==3)
             {
-                JOptionPane.showMessageDialog(frame,"Player 1 wins","tic-tac-toe",JOptionPane.PLAIN_MESSAGE);
-                endgame=true;
+                winner(1);
             }
             else if(column2==3)
             {
-                JOptionPane.showMessageDialog(frame,"Player 2 wins","tic-tac-toe",JOptionPane.PLAIN_MESSAGE);
-                endgame=true;
+                winner(2);
             }
                     
         }
@@ -206,17 +249,28 @@ public class game extends JFrame implements ActionListener
         {
             if((grid[0][0].getText().equals("1") && grid[2][2].getText().equals("1")) || grid[0][2].getText().equals("1") && grid[2][0].getText().equals("1"))
             {
-                JOptionPane.showMessageDialog(frame,"Player 1 wins","tic-tac-toe",JOptionPane.PLAIN_MESSAGE);
-                endgame=true;
+                winner(1);
             }
         }
         else if(grid[1][1].getText().equals("2"))
         {
             if((grid[0][0].getText().equals("2") && grid[2][2].getText().equals("2")) || grid[0][2].getText().equals("2") && grid[2][0].getText().equals("2"))
             {
-                JOptionPane.showMessageDialog(frame,"Player 2 wins","tic-tac-toe",JOptionPane.PLAIN_MESSAGE);
-                endgame=true;
+                winner(2);
             }
+        }
+    }
+    public static void winner(int player)
+    {
+        if(player==init.player)
+        {
+            JOptionPane.showMessageDialog(frame,"You win!","tic-tac-toe",JOptionPane.PLAIN_MESSAGE);
+            endgame = true;
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(frame,"You loose!","tic-tac-toe",JOptionPane.PLAIN_MESSAGE);
+            endgame = true;            
         }
     }
 }   
