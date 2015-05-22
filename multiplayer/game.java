@@ -75,25 +75,41 @@ public class game extends JFrame implements ActionListener
         int myPlayer = init.player;
         
         Object source = event.getSource();
+        
+        boolean full = true;
+        
+        for(int x=0; x<3; x++)
+        {
+            for(int y=0; y<3; y++)
+            {
+                if(grid[x][y].getText().equals(""))
+                {
+                    full = false;
+                }
+            }
+        }
+            
+            
+            
+        if((source==reset) && ((endgame==true) || (full==true)))
+        {
+            for(int x=0; x<3; x++)
+            {
+                for(int y=0; y<3; y++)
+                {
+                    grid[x][y].setText("");
+                    round = 0;
+                    playerText.setText("Player1");
+                    endgame=false;
+                }
+            }
+        }
 
         if(((myPlayer==1) && (round%2==0)) || ((myPlayer==2) && round%2==1))
         {
             round++;
 
-            if(source==reset)
-            {
-                for(int x=0; x<3; x++)
-                {
-                    for(int y=0; y<3; y++)
-                    {
-                        grid[x][y].setText("");
-                        round = 0;
-                        playerText.setText("Player1");
-                        endgame=false;
-                    }
-                }
-            }
-            else if(endgame==false)
+            if(endgame==false)
             {
                 for(int x=0; x<3; x++)
                 {
