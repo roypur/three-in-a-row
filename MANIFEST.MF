@@ -1,3 +1,3 @@
 Manifest-version: 1.0
-Main-Class: Frame1
+Main-Class: Game
 Class-Path: firebase.jar

@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;  //notice javax
-public class Frame1 extends JFrame implements ActionListener
+public class Game extends JFrame implements ActionListener
 {
     public int round = 0;
     JFrame frame = new JFrame();
@@ -13,7 +13,7 @@ public class Frame1 extends JFrame implements ActionListener
     
     boolean endgame = false;
     
-    public Frame1()
+    public Game()
     {
         
         frame.setLayout(new GridLayout(4,3));
@@ -46,8 +46,7 @@ public class Frame1 extends JFrame implements ActionListener
     public void actionPerformed(ActionEvent event)
     {
         Object source = event.getSource();
-        round++;
-        
+
         if(source==reset)
         {
             for(int x=0; x<3; x++)
@@ -71,6 +70,8 @@ public class Frame1 extends JFrame implements ActionListener
                     {
                         if(grid[x][y].getText().equals(""))
                         {
+                            round++;
+                            
                             if(round%2==0)
                             {
                                 grid[x][y].setText("2");
@@ -165,5 +166,5 @@ public class Frame1 extends JFrame implements ActionListener
             }
         }
     }
-    public static void main(String args[]) {new Frame1();}
+    public static void main(String args[]) {new Game();}
 }

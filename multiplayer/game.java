@@ -17,10 +17,6 @@ public class game extends JFrame implements ActionListener
     
     public static JLabel playerText = new JLabel();
     
-    
-    
-    
-    
     public game()
     {
 
